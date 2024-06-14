@@ -1,0 +1,9 @@
+include LICENSE
+include README.md
+recursive-include HuangTrader *.py
+recursive-include HuangTrader/templates/ *.j2 *.ipynb
+include HuangTrader/exchange/binance_leverage_tiers.json
+include HuangTrader/rpc/api_server/ui/fallback_file.html
+include HuangTrader/rpc/api_server/ui/favicon.ico
+
+prune tests

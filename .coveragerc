@@ -1,0 +1,7 @@
+[run]
+omit =
+    scripts/*
+    HuangTrader/templates/*
+    HuangTrader/vendor/*
+    HuangTrader/__main__.py
+    tests/*

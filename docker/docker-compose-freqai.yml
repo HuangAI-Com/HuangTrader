@@ -1,0 +1,36 @@
+---
+version: '3'
+services:
+  HuangTrader:
+    image: HuangTraderorg/HuangTrader:stable_freqaitorch
+    # # Enable GPU Image and GPU Resources
+    # # Make sure to uncomment the whole deploy section
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+    # Build step - only needed when additional dependencies are needed
+    # build:
+    #   context: .
+    #   dockerfile: "./docker/Dockerfile.custom"
+    restart: unless-stopped
+    container_name: HuangTrader
+    volumes:
+      - "./user_data:/HuangTrader/user_data"
+    # Expose api on port 8080 (localhost only)
+    # Please read the https://www.HuangTrader.io/en/stable/rest-api/ documentation
+    # for more information.
+    ports:
+      - "127.0.0.1:8080:8080"
+    # Default command used when running `docker compose up`
+    command: >
+      trade
+      --logfile /HuangTrader/user_data/logs/HuangTrader.log
+      --db-url sqlite:////HuangTrader/user_data/tradesv3.sqlite
+      --config /HuangTrader/user_data/config.json
+      --freqaimodel XGBoostRegressor
+      --strategy FreqaiExampleStrategy
